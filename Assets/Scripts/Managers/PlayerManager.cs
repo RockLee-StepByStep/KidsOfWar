@@ -1,21 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace HomeWork.Manareg
+namespace Managers
 {
-public class PlayerManager : MonoBehaviour
-{
-    [SerializeField]private float moveSpeed = 40;
-    
-    public void MoveControl(GameObject PLobject)
+    public class PlayerManager : MonoBehaviour
+    {
+        [SerializeField] private float _moveSpeed = 40;
+
+        public void MoveControl(GameObject controlObject)
         {
-            PLobject.transform.Translate(Vector3.forward * Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed);
-
-            PLobject.transform.Rotate(Vector3.up * Input.GetAxis("Horizontal"));
-        } 
-    
-    
+            var moveVelocity = Vector3.forward * (Input.GetAxis("Vertical") * Time.deltaTime * _moveSpeed);
+            var rotateVelocity = Vector3.up * Input.GetAxis("Horizontal");
+            
+            controlObject.transform.Translate(moveVelocity);
+            controlObject.transform.Rotate(rotateVelocity);
+        }
+    }
 }
-}
-
