@@ -1,48 +1,50 @@
 using System.Collections.Generic;
 using Cinemachine;
-using HomeWork.Manareg;
+using Core;
 using UnityEngine;
 
 namespace Managers
 {
     public class CameraManager : MonoBehaviour
     {
-        [SerializeField] CinemachineVirtualCamera PersonFollow;
-        [SerializeField] float TimeToChangeStep;
-        [SerializeField] float TimerFinish;
-        [SerializeField] private int numberOfTeam = 0;
-        [SerializeField] List<SpawnManager> listOfTeam = new List<SpawnManager>();
+        [SerializeField] private List<SpawnManager> _listOfTeam = new List<SpawnManager>();
+        [SerializeField] private float _timeToChangeStep;
+
+        private CinemachineVirtualCamera _personFollow;
+        private float _timerFinish;
+        private int _numberOfTeam = 0;
 
 
-        void Start()
+        private void Start()
         {
-            PersonFollow = GetComponent<CinemachineVirtualCamera>();
+            _personFollow = GetComponent<CinemachineVirtualCamera>();
         }
 
-        // Update is called once per frame
-        void FixedUpdate()
+        private void Update()
         {
             TimerForChangeStep();
         }
 
-
-        public void TimerForChangeStep()
+        private void TimerForChangeStep()
         {
             var second = Time.deltaTime;
-            TimerFinish += second;
+            _timerFinish += second;
 
-            if (TimerFinish >= TimeToChangeStep)
+            if (_timerFinish >= _timeToChangeStep)
             {
-                PersonFollow.Follow = listOfTeam[numberOfTeam].ChooseNextPlayer().transform;
-                TimerFinish = 0;
-                // numberOfTeam ++;
-                if (numberOfTeam == listOfTeam.Count - 1) numberOfTeam = 0;
+                _personFollow.Follow = _listOfTeam[_numberOfTeam].ChooseNextPlayer().transform;
+                _timerFinish = 0;
+                
+                if (_numberOfTeam == _listOfTeam.Count - 1)
+                {
+                    _numberOfTeam = 0;
+                }
                 else
                 {
-                    numberOfTeam++;
+                    _numberOfTeam++;
                 }
 
-                listOfTeam[numberOfTeam].ChooseNextPlayer();
+                _listOfTeam[_numberOfTeam].ChooseNextPlayer();
             }
         }
     }
