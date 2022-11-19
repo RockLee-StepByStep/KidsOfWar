@@ -8,8 +8,8 @@ namespace Core
     {
         [SerializeField] private GameObject _prefab;
 
-        private readonly List<GameObject> _players = new List<GameObject>(4);
-        private readonly List<Transform> _listForPoints = new List<Transform>();
+        private List<GameObject> _players = new List<GameObject>(4);
+        private List<Transform> _listForPoints = new List<Transform>();
 
         private const int CountOfCharacterInOneTeam = 4;
 
@@ -17,11 +17,34 @@ namespace Core
         private PlayerManager _manager;
         private int _numberOfPlayer = 0;
 
+        public bool TurnNow { get; set; } = false;
+
         private void Start()
         {
             GetPointsListPosition();
             GetThisPlayers();
             _manager = FindObjectOfType<PlayerManager>();
+        }
+
+        private void Update()
+        {
+            if (TurnNow)
+            {
+                _manager.MoveControl(_players[_numberOfPlayer]);
+            }
+        }
+
+        public GameObject GetFirstPlayer() => _players[0];
+        
+        public GameObject ChooseNextPlayer()
+        {
+            _numberOfPlayer += 1;
+            if (_numberOfPlayer == _players.Count)
+            {
+                _numberOfPlayer = 0;
+            }
+
+            return _players[_numberOfPlayer];
         }
 
         private void GetPointsListPosition()
@@ -37,18 +60,6 @@ namespace Core
                 GameObject both = Instantiate(_prefab, _listForPoints[i + 1].position, _listForPoints[i].rotation);
                 _players.Add(both);
             }
-        }
-
-
-        public GameObject ChooseNextPlayer()
-        {
-            _manager.MoveControl(_players[_numberOfPlayer]);
-            _numberOfPlayer += 1;
-            if (_numberOfPlayer == _players.Count)
-            {
-                _numberOfPlayer = 0;
-            }
-            return _players[_numberOfPlayer];
         }
     }
 }

@@ -10,14 +10,16 @@ namespace Managers
         [SerializeField] private List<SpawnManager> _listOfTeam = new List<SpawnManager>();
         [SerializeField] private float _timeToChangeStep;
 
-        private CinemachineVirtualCamera _personFollow;
+        private CinemachineVirtualCamera _camera;
         private float _timerFinish;
         private int _numberOfTeam = 0;
 
 
         private void Start()
         {
-            _personFollow = GetComponent<CinemachineVirtualCamera>();
+            _camera = GetComponent<CinemachineVirtualCamera>();
+            _camera.Follow = _listOfTeam[0].GetFirstPlayer().transform;
+            _listOfTeam[0].TurnNow = true;
         }
 
         private void Update()
@@ -32,7 +34,6 @@ namespace Managers
 
             if (_timerFinish >= _timeToChangeStep)
             {
-                _personFollow.Follow = _listOfTeam[_numberOfTeam].ChooseNextPlayer().transform;
                 _timerFinish = 0;
                 
                 if (_numberOfTeam == _listOfTeam.Count - 1)
@@ -43,8 +44,14 @@ namespace Managers
                 {
                     _numberOfTeam++;
                 }
+                
+                var nextPlayer = _listOfTeam[_numberOfTeam].ChooseNextPlayer();
+                _camera.Follow = nextPlayer.transform;
 
-                _listOfTeam[_numberOfTeam].ChooseNextPlayer();
+                for (var i = 0; i < _listOfTeam.Count; i++)
+                {
+                    _listOfTeam[i].TurnNow = i == _numberOfTeam;
+                }
             }
         }
     }
