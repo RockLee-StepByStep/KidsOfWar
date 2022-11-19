@@ -12,7 +12,7 @@ namespace HomeWork.Manareg
         //Список точек респавна 
         [SerializeField] List<Transform> ListForPoints = new List<Transform>();
 
-        int count = 4;
+        int countOfCharacterInOneTeam = 4;
 
 
         private PlayerManager Manager;
@@ -22,13 +22,11 @@ namespace HomeWork.Manareg
         {
             GetPointsListPosition();
             GetThisPlayers();
-
-
             Manager = FindObjectOfType<PlayerManager>();
         }
         private void Update()
         {
-            Manager.MoveControl(players[numberOfPlayer]);
+            
         }
         private void GetPointsListPosition()
         {
@@ -39,7 +37,7 @@ namespace HomeWork.Manareg
 
         private void GetThisPlayers()
         {
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < countOfCharacterInOneTeam; i++)
             {
                 GameObject both = Instantiate(prefub, ListForPoints[i + 1].position, ListForPoints[i].rotation);
                 players.Add(both);
@@ -49,7 +47,7 @@ namespace HomeWork.Manareg
 
         public GameObject ChooseNextPlayer()
         {
-           
+            Manager.MoveControl(players[numberOfPlayer]);
             numberOfPlayer += 1;
             if (numberOfPlayer == players.Count) numberOfPlayer = 0;
             return players[numberOfPlayer];
