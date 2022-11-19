@@ -7,9 +7,9 @@ namespace HomeWork.Manareg
     public class SpawnManager : MonoBehaviour
     {
         [SerializeField] GameObject prefub;
-        //Список персонажей
+        //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         [SerializeField] List<GameObject> players = new List<GameObject>(4);
-        //Список точек респавна 
+        //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 
         [SerializeField] List<Transform> ListForPoints = new List<Transform>();
 
         int countOfCharacterInOneTeam = 4;
@@ -31,7 +31,6 @@ namespace HomeWork.Manareg
         private void GetPointsListPosition()
         {
             var Listic = GetComponentsInChildren<Transform>();
-            //Добавляем список точек для появления персонажей в точках респавна
             ListForPoints.AddRange(Listic);
         }
 
