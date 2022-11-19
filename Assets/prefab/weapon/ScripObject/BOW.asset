@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd3cd9537326264ab9e92547bbb0d57, type: 3}
+  m_Name: BOW
+  m_EditorClassIdentifier: 
+  animatorOverride: {fileID: 22100000, guid: 8d0d3286cb6a1b94fb18aac58b463413, type: 2}
+  weaponen: {fileID: 1986020875623830, guid: 88d2a0d21fe07524ea1d0c4f7a788bbc, type: 3}
+  fightDistance: 7
+  Damage: 4
